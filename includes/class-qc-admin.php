@@ -3,6 +3,10 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+if ( class_exists( 'QC_Admin' ) ) {
+    return;
+}
+
 class QC_Admin {
 
     public function __construct() {

@@ -3,7 +3,15 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+if ( class_exists( 'QC_Frontend' ) ) {
+    return;
+}
+
 class QC_Frontend {
+
+    private $allowed_products = null;
+    private $allowed_categories = null;
+    private $quantity_rules = null;
 
     public function __construct() {
         add_filter( 'woocommerce_quantity_input_args', array( $this, 'apply_quantity_input_args' ), 10, 2 );
@@ -12,9 +20,25 @@ class QC_Frontend {
         add_action( 'woocommerce_before_add_to_cart_form', array( $this, 'display_custom_quantity_banner' ) );
     }
 
+    private function get_allowed_products() {
+        if ( null === $this->allowed_products ) {
+            $this->allowed_products = array_map( 'absint', (array) get_option( 'qc_products', array() ) );
+        }
+
+        return $this->allowed_products;
+    }
+
+    private function get_allowed_categories() {
+        if ( null === $this->allowed_categories ) {
+            $this->allowed_categories = array_map( 'absint', (array) get_option( 'qc_categories', array() ) );
+        }
+
+        return $this->allowed_categories;
+    }
+
     private function should_apply_rules( $product_id ) {
-        $allowed_products   = array_map( 'absint', (array) get_option( 'qc_products', array() ) );
-        $allowed_categories = array_map( 'absint', (array) get_option( 'qc_categories', array() ) );
+        $allowed_products   = $this->get_allowed_products();
+        $allowed_categories = $this->get_allowed_categories();
         $product_id         = absint( $product_id );
         $product            = wc_get_product( $product_id );
         $parent_id          = $product && $product->is_type( 'variation' ) ? absint( $product->get_parent_id() ) : 0;
@@ -38,14 +62,20 @@ class QC_Frontend {
     }
 
     private function get_quantity_rules() {
+        if ( null !== $this->quantity_rules ) {
+            return $this->quantity_rules;
+        }
+
         $min_qty = absint( get_option( 'qc_min_qty', 1 ) );
         $max_qty = get_option( 'qc_max_qty', '' );
         $max_qty = '' === $max_qty ? '' : absint( $max_qty );
 
-        return array(
+        $this->quantity_rules = array(
             'min' => $min_qty,
             'max' => $max_qty,
         );
+
+        return $this->quantity_rules;
     }
 
     private function get_product_display_name( $product_id ) {
