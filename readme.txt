@@ -1,5 +1,5 @@
 === Quantity Ceiling ===
-Contributors: Ansar
+Contributors: ansar317
 Tags: woocommerce, quantity, minimum quantity, maximum quantity
 Requires at least: 6.0
 Tested up to: 6.5
