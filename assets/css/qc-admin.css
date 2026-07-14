@@ -161,15 +161,37 @@
 
 .qc-actions {
     margin-top: 16px;
-    padding: 16px 20px;
-    background: #fff;
-    border: 1px solid #dcdcde;
-    border-radius: 6px;
 }
 
 .qc-actions .button {
     min-height: 36px;
     padding: 0 16px;
+}
+
+.qc-variation-fields .form-field {
+    margin-bottom: 16px !important;
+    padding: 0 !important;
+}
+
+.qc-variation-fields .form-field label {
+    display: inline-block;
+    margin-right: 8px;
+    font-weight: 600;
+}
+
+.qc-variation-fields .form-field input[type="checkbox"] {
+    margin-right: 8px !important;
+    vertical-align: middle;
+}
+
+.qc-variation-fields .form-field .description,
+.qc-variation-fields .form-field span.description {
+    display: block;
+    margin-top: 6px !important;
+    margin-left: 0 !important;
+    color: #646970;
+    font-size: 12px;
+    font-style: normal;
 }
 
 @media (max-width: 960px) {
