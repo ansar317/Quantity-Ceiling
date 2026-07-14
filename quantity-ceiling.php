@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Quantity Ceiling
  * Description: Set minimum and maximum quantity restrictions for selected WooCommerce products, categories, and individually configured Variable Products.
- * Version:     2.0.3
+ * Version:     1.0.0
  * Author:      Ansar
  * License:     GPL-2.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'QC_VERSION' ) ) {
-	define( 'QC_VERSION', '2.0.3' );
+	define( 'QC_VERSION', '1.0.0' );
 }
 
 if ( ! defined( 'QC_PLUGIN_FILE' ) ) {
